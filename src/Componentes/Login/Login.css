@@ -1,0 +1,11 @@
+.img-titulo {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+  }
+  
+  .imgflecha {
+    width: 30px;
+    height: 30px;
+    transform: rotateY(180deg);
+  }

@@ -1,0 +1,73 @@
+.plantillaPokemon{
+    width: 300px;
+    padding-bottom: 20px;
+    text-decoration: none;
+    height: 400px;
+}
+
+.plantillaPokemon:hover{
+    opacity: 80%;
+}
+
+.numPoke{
+    text-align: end;
+    padding-right: 30px;
+}
+
+.imgTarjeta{
+    grid-area: imgTarjeta;
+    display: flex;
+    justify-content: center;
+}
+
+.imagenPokemon{
+    width: 250px;
+}
+
+.h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-area: h3;
+    text-align: center;
+    color: white;
+    width: 100%;
+}
+
+.pokemonesClases{
+    display: grid;
+    grid-template-rows: 0.2fr 1.5fr 0.2fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    "p"
+    "imgTarjeta"
+    "h3";
+    width: 100%; 
+    border-radius: 20px;
+}
+
+.cruz{
+    z-index: 1;
+    position: relative;
+    top: 20px;
+    left: -275px;
+    width: 12px;
+    height: 12px;
+}
+
+/* ////////////Media Query ///////// */
+
+@media screen and (max-width: 390px) {
+    .plantillaPokemon {
+      width: 45%;
+      padding-bottom: 10px;
+    }
+    .numPoke {
+        text-align: end;
+        padding-right: 30px;
+    }
+  
+    .imgTarjeta > img {
+      width: 100%;
+    }
+  }

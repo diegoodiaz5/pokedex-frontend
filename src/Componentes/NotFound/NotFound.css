@@ -1,0 +1,24 @@
+.conteinerNotFound{
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.errorImage{
+    width: 60%;
+}
+
+.backHome{
+    position: absolute;
+    background-color: #3a86ff;
+    color: #ffb703;
+    top: 480px;
+    height: 32px;
+    width: 120px;
+    transform: rotate(8deg);
+}
+
+.backHome:hover{
+    opacity: 80%;
+}

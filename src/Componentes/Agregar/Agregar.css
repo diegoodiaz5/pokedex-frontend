@@ -1,0 +1,134 @@
+.contact_form{  
+    width: 460px; 
+    height: auto;
+    margin: 5px auto;
+    border-radius: 10px;   
+    background-color: #fbfbfb; 
+    padding-left: 4px; 
+  }
+  
+  
+  input{
+    background-color: #fbfbfb; 
+    width: 408px; 
+    height: 40px; 
+    border-radius: 5px;  
+    border-style: solid; 
+    border-width: 1px; 
+    border-color: #ef5350; 
+    padding-left: 10px;
+    margin-bottom: 10px
+  }
+  
+  
+  textarea{
+    background-color: #fbfbfb; 
+    width: 405px; 
+    height: 150px; 
+    border-radius: 5px;  
+    border-style: solid; 
+    border-width: 1px; 
+    border-color: #ef5350; 
+    margin-top: 10px;  
+    padding-left: 10px;
+    margin-bottom: 20px; 
+    padding-top: 15px; 
+  }
+  
+  
+  label{
+    display: block; 
+    float: center;  
+  }
+  
+  
+  .buttonEnviar{
+    height: 45px; 
+    padding-left: 5px;
+    padding-right: 5px;   
+    margin-bottom: 20px; 
+    margin-top: 10px;   
+    text-transform: uppercase;
+    background-color: #ef5350; 
+    border-color: #000000a1; 
+    border-style: solid; 
+    border-radius: 10px;  
+    width: 420px;
+  }
+
+  .buttonEnviar:hover{
+    opacity: 80%;
+  }
+  
+  
+  button p{
+color: #d3df35
+}
+  
+  
+  span{
+    color: #ff0000; 
+  }
+  
+  
+  .aviso{
+    font-size: 14px;  
+    color: #0e0e0e;  
+  }
+  
+  
+  .h1Agregar{
+    font-size: 39px;  
+    text-align: center; 
+    color: #b2d827;
+    text-shadow: 1px 1px 1px black;
+  }
+  
+  
+  .pAgregar{
+    font-size: 14px; 
+    color: #0e0e0e; 
+  }
+  
+  
+  ::-webkit-input-placeholder {
+   color: #a8a8a8;
+  }
+  
+  
+  ::-webkit-textarea-placeholder {
+   color: #a8a8a8;
+  }
+  
+  
+  .formulario input:focus{
+    outline:0;
+    border: 1px solid #97d848;
+  }
+  
+  
+  .formulario textarea:focus{
+    outline:0;
+    border: 1px solid #97d848;
+  }
+
+.statsAgregar{
+    display: flex;
+    flex-direction: column;
+}
+
+.inputStats{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+}
+
+.inputStats > input {
+    width: 60px
+}
+
+.statsAgregarColumna1, .statsAgregarColumna2{
+    display: flex;
+    justify-content: space-around;
+}

@@ -1,0 +1,36 @@
+.buscador{
+    display: flex;
+    justify-content: center;
+}
+
+.inputContenedor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 96%;
+    min-height: 120px;
+  }
+  
+  #input {
+    box-sizing: border-box;
+    color: #191919;
+    padding: 15px 15px 15px 48%;
+    width: 100%;
+    border-radius: 12px;
+    font-family: "Poppins";
+    font-size: 20px;
+  }
+
+  /* ////////////Media Query ///////// */
+
+@media screen and (max-width: 390px) {
+  #input {
+    padding: 0px;
+    text-align: center;
+    font-size: 0.8em;
+  }
+  .inputContenedor {
+    height: 120px;
+  }
+}
