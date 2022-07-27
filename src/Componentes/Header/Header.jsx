@@ -7,7 +7,7 @@ export default function Header({ ordenarPorNombre, ordenandoPorNombre }) {
   const navigate = useNavigate();
   const desconectarse = () => {
     localStorage.removeItem("token");
-    navigate("/");
+    window.location.reload();
   };
 
   return (

@@ -25,31 +25,38 @@ export default function TarjetaPokemon({ pokemon }) {
   };
   return (
     <>
-      <Link to={`/${pokemon.nombre}`} className="plantillaPokemon">
-        <div
-          className="pokemonesClases"
-          style={{
-            border: `solid ${pokemon.colorPrimario}`,
-            borderWidth: "4px 4px 10px 4px",
-          }}
-        >
-          <p className="numPoke" style={{ color: pokemon.colorPrimario }}>
-            {pokemon.id}
-          </p>
-          <div className="imgTarjeta">
-            <img className="imagenPokemon" src={pokemon.imagen} alt="" />
-          </div>
+      <div className="contenedorTarjetaYCruz">
+        <Link to={`/${pokemon.nombre}`} className="plantillaPokemon">
           <div
-            className="h3"
-            style={{ backgroundColor: pokemon.colorPrimario }}
+            className="pokemonesClases"
+            style={{
+              border: `solid ${pokemon.colorPrimario}`,
+              borderWidth: "4px 4px 10px 4px",
+            }}
           >
-            <h3>{pokemon.nombre}</h3>
+            <p className="numPoke" style={{ color: pokemon.colorPrimario }}>
+              {pokemon.id}
+            </p>
+            <div className="imgTarjeta">
+              <img className="imagenPokemon" src={pokemon.imagen} alt="" />
+            </div>
+            <div
+              className="h3"
+              style={{ backgroundColor: pokemon.colorPrimario }}
+            >
+              <h3>{pokemon.nombre}</h3>
+            </div>
           </div>
-        </div>
-      </Link>
-      {localStorage.token && (
-        <img className="cruz" src={Cruz} alt="cruz" onClick={eliminarPokemon} />
-      )}
+        </Link>
+        {localStorage.token && (
+          <img
+            className="cruz"
+            src={Cruz}
+            alt="cruz"
+            onClick={eliminarPokemon}
+          />
+        )}
+      </div>
     </>
   );
 }
