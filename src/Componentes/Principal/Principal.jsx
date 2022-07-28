@@ -5,10 +5,19 @@ import Section from "../Section/Section.jsx";
 import "./Principal.css";
 import { useState } from "react";
 import { useEffect } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+  borderRight: "0",
+};
 
 export default function Principal() {
   const [lista, setLista] = useState([]);
   const [listaDos, setListaDos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const cargarPokemons = async () => {
@@ -24,6 +33,7 @@ export default function Principal() {
         const pokemonFetch = await respuesta.json();
         setLista(pokemonFetch);
         setListaDos(pokemonFetch);
+        setLoading(false);
       } catch (error) {
         console.log("No se pudo conectar con el backend");
       }
@@ -42,7 +52,7 @@ export default function Principal() {
       setOrdenandoPorNombre(true);
     } else {
       const listaOrdenada = lista.sort((a, b) =>
-        a.numero > b.numero ? 1 : a.numero < b.numero ? -1 : 0
+        a.id > b.id ? 1 : a.id < b.id ? -1 : 0
       );
       setListaDos([...listaOrdenada]);
       setOrdenandoPorNombre(false);
@@ -68,7 +78,11 @@ export default function Principal() {
           ordenandoPorNombre={ordenandoPorNombre}
         />
         <Buscador filtrado={handleChange} />
-        <Section pokemons={lista} />
+        {loading ? (
+          <ClipLoader loading={loading} cssOverride={override} size={150} />
+        ) : (
+          <Section pokemons={lista} />
+        )}
       </div>
     </div>
   );

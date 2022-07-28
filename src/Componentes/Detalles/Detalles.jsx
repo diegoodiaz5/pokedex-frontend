@@ -10,6 +10,14 @@ import ArrowBefore from "../Materiales/arrow-before.svg";
 import ArrowNext from "../Materiales/arrow-next.svg";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import ClipLoader from "react-spinners/ClipLoader";
+
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+  borderRight: "0",
+};
 
 export default function Detalles() {
   const [pokemon, setPokemon] = useState({});
@@ -41,13 +49,13 @@ export default function Detalles() {
           throw new Error("Error en el servidor");
         }
         setListaPokemons(await respuesta2.json());
+        setLoading(false);
       } catch (error) {
         navigate("/404", { replace: true });
         console.log("No se pudo conectar con el backend");
       }
     };
     cargarPokemon();
-    setLoading(false);
   }, [id]);
 
   useEffect(() => {
@@ -107,7 +115,15 @@ export default function Detalles() {
             <img src={Pokeball} alt="pokeball" />
           </div>
           <div className="imagenPoke">
-            <img className="imgPoke" src={pokemon.imagen} alt="foto pokemon" />
+            {loading ? (
+              <ClipLoader loading={loading} cssOverride={override} size={150} />
+            ) : (
+              <img
+                className="imgPoke"
+                src={pokemon.imagen}
+                alt="foto pokemon"
+              />
+            )}
           </div>
 
           <div className="card">
