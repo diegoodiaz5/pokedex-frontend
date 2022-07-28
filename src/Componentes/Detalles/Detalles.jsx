@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 
-const override: CSSProperties = {
+const override = {
   display: "block",
   margin: "0 auto",
   borderColor: "red",
@@ -56,7 +56,7 @@ export default function Detalles() {
       }
     };
     cargarPokemon();
-  }, [id]);
+  });
 
   useEffect(() => {
     const resultado = listaPokemons.findIndex(
@@ -208,12 +208,12 @@ export default function Detalles() {
                 <p>SPD</p>
               </div>
               <div className="values">
-                <p>{pokemon.HP}</p>
-                <p>{pokemon.ATK}</p>
-                <p>{pokemon.DEF}</p>
-                <p>{pokemon.SATK}</p>
-                <p>{pokemon.SDEF}</p>
-                <p>{pokemon.SPD}</p>
+                <p>{`${pokemon.HP}`.padStart(3, 0)}</p>
+                <p>{`${pokemon.ATK}`.padStart(3, 0)}</p>
+                <p>{`${pokemon.DEF}`.padStart(3, 0)}</p>
+                <p>{`${pokemon.SATK}`.padStart(3, 0)}</p>
+                <p>{`${pokemon.SDEF}`.padStart(3, 0)}</p>
+                <p>{`${pokemon.SPD}`.padStart(3, 0)}</p>
               </div>
               <div className="graph">
                 <div className="graphlinea">
