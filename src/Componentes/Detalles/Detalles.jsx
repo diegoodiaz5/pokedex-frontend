@@ -21,9 +21,9 @@ const override = {
 
 export default function Detalles() {
   const [pokemon, setPokemon] = useState({});
-  const [listaPokemons, setListaPokemons] = useState([]);
-  const [indicePokemon, setIndicePokemon] = useState();
   const [loading, setLoading] = useState(true);
+  const [next, setNext] = useState("");
+  const [prev, setPrev] = useState("");
 
   const navigate = useNavigate();
 
@@ -36,36 +36,21 @@ export default function Detalles() {
           headers: { "auth-token": localStorage.token },
         });
 
-        if (!respuesta.ok) {
-          throw new Error("Error en el servidor");
-        }
-        setPokemon(await respuesta.json());
+        const respuestaJSON = await respuesta.json();
+        setPokemon(respuestaJSON.pokemon);
+        setNext(respuestaJSON.next?.nombre);
+        setPrev(respuestaJSON.prev?.nombre);
 
-        const respuesta2 = await fetch(`http://localhost:1235/`, {
-          headers: { "auth-token": localStorage.token },
-        });
+        console.log(respuestaJSON);
 
-        if (!respuesta2.ok) {
-          throw new Error("Error en el servidor");
-        }
-        setListaPokemons(await respuesta2.json());
         setLoading(false);
       } catch (error) {
         navigate("/404", { replace: true });
-        console.log("No se pudo conectar con el backend");
+        console.log(error);
       }
     };
     cargarPokemon();
-  });
-
-  useEffect(() => {
-    const resultado = listaPokemons.findIndex(
-      (pkmn) => pkmn.nombre.toLowerCase() === pokemon.nombre.toLowerCase()
-    );
-
-    setIndicePokemon(resultado);
-  }, [listaPokemons, pokemon]);
-
+  }, [id, navigate]);
   return (
     <>
       <div className="contenedor">
@@ -73,10 +58,10 @@ export default function Detalles() {
           className="tarjetaPokDetalle"
           style={{ backgroundColor: pokemon.colorPrimario }}
         >
-          {indicePokemon > 0 && (
+          {prev && (
             <div
               onClick={() =>
-                navigate(`/${listaPokemons[indicePokemon - 1]?.nombre}`, {
+                navigate(`/${prev}`, {
                   replace: true,
                 })
               }
@@ -86,10 +71,10 @@ export default function Detalles() {
             </div>
           )}
 
-          {listaPokemons[indicePokemon + 1] && (
+          {next && (
             <div
               onClick={() =>
-                navigate(`/${listaPokemons[indicePokemon + 1].nombre}`, {
+                navigate(`/${next}`, {
                   replace: true,
                 })
               }
