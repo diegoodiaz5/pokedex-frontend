@@ -2,125 +2,23 @@ import React from "react";
 import "./Agregar.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { statsValidator } from "./validarStats";
 
 export default function Agregar() {
-  const [id, setId] = useState("");
-  const [nombre, setNombre] = useState("");
-  const [colorPrimario, setColorPrimario] = useState("");
-  const [colorSecundario, setColorSecundario] = useState("");
-  const [peso, setPeso] = useState("");
-  const [altura, setAltura] = useState("");
-  const [tipo1, setTipo1] = useState("");
-  const [tipo2, setTipo2] = useState("");
-  const [movimiento1, setMovimiento1] = useState("");
-  const [movimiento2, setMovimiento2] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [HP, setHP] = useState("");
-  const [ATK, setATK] = useState("");
-  const [DEF, setDEF] = useState("");
-  const [SATK, setSATK] = useState("");
-  const [SDEF, setSDEF] = useState("");
-  const [SPD, setSPD] = useState("");
-  const [imagen, setImagen] = useState("");
-
-  const handleChangeId = (ev) => {
-    setId(ev.target.value);
-  };
-
-  const handleChangeNombre = (ev) => {
-    setNombre(ev.target.value);
-  };
-
-  const handleChangeColorPrimario = (ev) => {
-    setColorPrimario(ev.target.value);
-  };
-
-  const handleChangeColorSecundario = (ev) => {
-    setColorSecundario(ev.target.value);
-  };
-
-  const handleChangePeso = (ev) => {
-    setPeso(ev.target.value);
-  };
-
-  const handleChangeAltura = (ev) => {
-    setAltura(ev.target.value);
-  };
-
-  const handleChangeTipo1 = (ev) => {
-    setTipo1(ev.target.value);
-  };
-
-  const handleChangeTipo2 = (ev) => {
-    setTipo2(ev.target.value);
-  };
-
-  const handleChangeMovimiento1 = (ev) => {
-    setMovimiento1(ev.target.value);
-  };
-
-  const handleChangeMovimiento2 = (ev) => {
-    setMovimiento2(ev.target.value);
-  };
-
-  const handleChangeDescripcion = (ev) => {
-    setDescripcion(ev.target.value);
-  };
-
-  const handleChangeHP = (ev) => {
-    setHP(ev.target.value);
-  };
-
-  const handleChangeATK = (ev) => {
-    setATK(ev.target.value);
-  };
-
-  const handleChangeDEF = (ev) => {
-    setDEF(ev.target.value);
-  };
-
-  const handleChangeSATK = (ev) => {
-    setSATK(ev.target.value);
-  };
-
-  const handleChangeSDEF = (ev) => {
-    setSDEF(ev.target.value);
-  };
-
-  const handleChangeSPD = (ev) => {
-    setSPD(ev.target.value);
-  };
-
-  const handleChangeImagen = (ev) => {
-    setImagen(ev.target.value);
-  };
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
   const navigate = useNavigate();
 
-  const agregarPokemon = async () => {
+  const agregarPokemon = async (data) => {
     try {
       const respuesta = await fetch("http://localhost:1235/addPkmn", {
         method: "POST",
-        body: JSON.stringify({
-          id,
-          nombre,
-          colorPrimario,
-          colorSecundario,
-          peso,
-          altura,
-          tipo1,
-          tipo2,
-          movimiento1,
-          movimiento2,
-          descripcion,
-          HP,
-          ATK,
-          DEF,
-          SATK,
-          SDEF,
-          SPD,
-          imagen,
-        }),
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
@@ -131,6 +29,7 @@ export default function Agregar() {
       }
       const agregarPkmnFetch = await respuesta.json();
       console.log(agregarPkmnFetch);
+      console.log(respuesta);
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -149,7 +48,7 @@ export default function Agregar() {
               alt=""
             />
             <h1 className="h1Agregar">Agregar Pokémon</h1>
-            <form>
+            <form onSubmit={handleSubmit(agregarPokemon)}>
               <p className="pAgregar">
                 <label for="id">
                   Id
@@ -158,10 +57,13 @@ export default function Agregar() {
                 <input
                   type="text"
                   id="id"
-                  required="obligatorio"
-                  placeholder="Id del pokémon"
-                  onChange={handleChangeId}
+                  {...register("id", {
+                    required: true,
+                    maxLength: 4,
+                  })}
                 />
+                {errors.id?.type === "required" && <p>* Campo obligatorio</p>}
+                {errors.id?.type === "maxLength" && <p> Longitud máxima: 4 </p>}
               </p>
               <p className="pAgregar">
                 <label for="nombre">
@@ -171,10 +73,13 @@ export default function Agregar() {
                 <input
                   type="text"
                   id="nombre"
-                  required="obligatorio"
-                  placeholder="Nombre del pokémon"
-                  onChange={handleChangeNombre}
+                  {...register("nombre", {
+                    required: true,
+                  })}
                 />
+                {errors.nombre?.type === "required" && (
+                  <p>* Campo obligatorio</p>
+                )}
               </p>
 
               <p className="pAgregar">
@@ -185,10 +90,17 @@ export default function Agregar() {
                 <input
                   type="text"
                   id="colorPrimario"
-                  placeholder="Color primario del Pokémon"
-                  required="obligatorio"
-                  onChange={handleChangeColorPrimario}
+                  {...register("colorPrimario", {
+                    required: true,
+                    maxLength: 7,
+                  })}
                 />
+                {errors.colorPrimario?.type === "required" && (
+                  <p>* Campo obligatorio</p>
+                )}
+                {errors.colorPrimario?.type === "maxLength" && (
+                  <p> Longitud máxima: 7 </p>
+                )}
               </p>
 
               <p className="pAgregar">
@@ -196,9 +108,13 @@ export default function Agregar() {
                 <input
                   type="text"
                   id="colorSecundario"
-                  placeholder="Color secundario del Pokémon"
-                  onChange={handleChangeColorSecundario}
+                  {...register("colorSecundario", {
+                    maxLength: 7,
+                  })}
                 />
+                {errors.colorPrimario?.type === "maxLength" && (
+                  <p> Longitud máxima: 7 </p>
+                )}
               </p>
               <p className="pAgregar">
                 <label for="peso">
@@ -208,10 +124,11 @@ export default function Agregar() {
                 <input
                   type="text"
                   id="peso"
-                  required="obligatorio"
-                  placeholder="Escribe el peso del Pokémon en kg"
-                  onChange={handleChangePeso}
+                  {...register("peso", {
+                    required: true,
+                  })}
                 />
+                {errors.peso?.type === "required" && <p>* Campo obligatorio</p>}
               </p>
 
               <p className="pAgregar">
@@ -222,10 +139,13 @@ export default function Agregar() {
                 <input
                   type="text"
                   id="altura"
-                  required="obligatorio"
-                  placeholder="Escribe la altura del pokémon en metros"
-                  onChange={handleChangeAltura}
+                  {...register("altura", {
+                    required: true,
+                  })}
                 />
+                {errors.altura?.type === "required" && (
+                  <p>* Campo obligatorio</p>
+                )}
               </p>
 
               <p className="pAgregar">
@@ -236,10 +156,13 @@ export default function Agregar() {
                 <input
                   className="texto_mensaje"
                   id="tipo1"
-                  required="obligatorio"
-                  placeholder="Escribe el tipo primario del Pokémon"
-                  onChange={handleChangeTipo1}
-                ></input>
+                  {...register("tipo1", {
+                    required: true,
+                  })}
+                />
+                {errors.tipo1?.type === "required" && (
+                  <p>* Campo obligatorio</p>
+                )}
               </p>
 
               <p className="pAgregar">
@@ -247,8 +170,7 @@ export default function Agregar() {
                 <input
                   className="texto_mensaje"
                   id="tipo2"
-                  placeholder="Escribe el tipo secundario del Pokémon"
-                  onChange={handleChangeTipo2}
+                  {...register("tipo2")}
                 ></input>
               </p>
 
@@ -259,10 +181,13 @@ export default function Agregar() {
                 <input
                   className="texto_mensaje"
                   id="movimiento1"
-                  required="obligatorio"
-                  placeholder="Escribe el movimiento 1 del Pokémon"
-                  onChange={handleChangeMovimiento1}
-                ></input>
+                  {...register("movimiento1", {
+                    required: true,
+                  })}
+                />
+                {errors.movimiento1?.type === "required" && (
+                  <p>* Campo obligatorio</p>
+                )}
               </p>
 
               <p className="pAgregar">
@@ -270,8 +195,7 @@ export default function Agregar() {
                 <input
                   className="texto_mensaje"
                   id="movimiento2"
-                  placeholder="Escribe el movimiento 2 del Pokémon"
-                  onChange={handleChangeMovimiento2}
+                  {...register("movimiento2")}
                 ></input>
               </p>
 
@@ -280,9 +204,13 @@ export default function Agregar() {
                 <textarea
                   className="texto_mensaje"
                   id="descripcion"
-                  placeholder="Escribe la descripción del Pokémon"
-                  onChange={handleChangeDescripcion}
-                ></textarea>
+                  {...register("descripcion", {
+                    required: true,
+                  })}
+                />
+                {errors.descripcion?.type === "required" && (
+                  <p>* Campo obligatorio</p>
+                )}
               </p>
 
               <div className="statsAgregar">
@@ -293,8 +221,19 @@ export default function Agregar() {
                       type="number"
                       min="0"
                       max="100"
-                      onChange={handleChangeHP}
+                      {...register("HP", {
+                        required: true,
+                        maxLength: 3,
+                        validate: statsValidator,
+                      })}
                     />
+                    {errors.HP?.type === "required" && (
+                      <p>* Campo obligatorio</p>
+                    )}
+                    {errors.colorPrimario?.type === "maxLength" && (
+                      <p> Longitud máxima: 3 </p>
+                    )}
+                    {errors.HP && <p>Numero entre 0 y 999</p>}
                   </div>
                   <div className="inputStats">
                     <label for="ATK">ATK</label>
@@ -302,8 +241,19 @@ export default function Agregar() {
                       type="number"
                       min="0"
                       max="100"
-                      onChange={handleChangeATK}
+                      {...register("ATK", {
+                        required: true,
+                        maxLength: 3,
+                        validate: statsValidator,
+                      })}
                     />
+                    {errors.ATK?.type === "required" && (
+                      <p>* Campo obligatorio</p>
+                    )}
+                    {errors.colorPrimario?.type === "maxLength" && (
+                      <p> Longitud máxima: 3 </p>
+                    )}
+                    {errors.ATK && <p>Numero entre 0 y 999</p>}
                   </div>
                   <div className="inputStats">
                     <label for="DEF">DEF</label>
@@ -311,8 +261,19 @@ export default function Agregar() {
                       type="number"
                       min="0"
                       max="100"
-                      onChange={handleChangeDEF}
+                      {...register("DEF", {
+                        required: true,
+                        maxLength: 3,
+                        validate: statsValidator,
+                      })}
                     />
+                    {errors.DEF?.type === "required" && (
+                      <p>* Campo obligatorio</p>
+                    )}
+                    {errors.colorPrimario?.type === "maxLength" && (
+                      <p> Longitud máxima: 3 </p>
+                    )}
+                    {errors.DEF && <p>Numero entre 0 y 999</p>}
                   </div>
                 </div>
                 <div className="statsAgregarColumna2">
@@ -322,8 +283,19 @@ export default function Agregar() {
                       type="number"
                       min="0"
                       max="100"
-                      onChange={handleChangeSATK}
+                      {...register("SATK", {
+                        required: true,
+                        maxLength: 3,
+                        validate: statsValidator,
+                      })}
                     />
+                    {errors.SATK?.type === "required" && (
+                      <p>* Campo obligatorio</p>
+                    )}
+                    {errors.colorPrimario?.type === "maxLength" && (
+                      <p> Longitud máxima: 3 </p>
+                    )}
+                    {errors.SATK && <p>Numero entre 0 y 999</p>}
                   </div>
                   <div className="inputStats">
                     <label for="SDEF">SDEF</label>
@@ -331,8 +303,19 @@ export default function Agregar() {
                       type="number"
                       min="0"
                       max="100"
-                      onChange={handleChangeSDEF}
+                      {...register("SDEF", {
+                        required: true,
+                        maxLength: 3,
+                        validate: statsValidator,
+                      })}
                     />
+                    {errors.SDEF?.type === "required" && (
+                      <p>* Campo obligatorio</p>
+                    )}
+                    {errors.colorPrimario?.type === "maxLength" && (
+                      <p> Longitud máxima: 3 </p>
+                    )}
+                    {errors.SDEF && <p>Numero entre 0 y 999</p>}
                   </div>
                   <div className="inputStats">
                     <label for="SPD">SPD</label>
@@ -340,8 +323,19 @@ export default function Agregar() {
                       type="number"
                       min="0"
                       max="100"
-                      onChange={handleChangeSPD}
+                      {...register("SPD", {
+                        required: true,
+                        maxLength: 3,
+                        validate: statsValidator,
+                      })}
                     />
+                    {errors.SPD?.type === "required" && (
+                      <p>* Campo obligatorio</p>
+                    )}
+                    {errors.colorPrimario?.type === "maxLength" && (
+                      <p> Longitud máxima: 3 </p>
+                    )}
+                    {errors.SPD && <p>Numero entre 0 y 999</p>}
                   </div>
                 </div>
               </div>
@@ -352,18 +346,16 @@ export default function Agregar() {
                 <input
                   className="texto_mensaje"
                   id="imagen"
-                  required="obligatorio"
-                  placeholder="Link de la imágen del Pokémon"
-                  onChange={handleChangeImagen}
-                ></input>
+                  {...register("imagen", {
+                    required: true,
+                  })}
+                />
+                {errors.imagen?.type === "required" && (
+                  <p>* Campo obligatorio</p>
+                )}
               </p>
 
-              <button
-                className="buttonEnviar"
-                type="button"
-                id="enviar"
-                onClick={agregarPokemon}
-              >
+              <button className="buttonEnviar" type="submit" id="enviar">
                 <p className="pAgregar">Enviar</p>
               </button>
 
