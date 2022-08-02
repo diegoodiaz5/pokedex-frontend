@@ -1,6 +1,5 @@
 import React from "react";
 import "./Agregar.css";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { statsValidator } from "./validarStats";
@@ -60,10 +59,14 @@ export default function Agregar() {
                   {...register("id", {
                     required: true,
                     maxLength: 4,
+                    pattern: /#{1}[0-9]{3}/,
                   })}
                 />
                 {errors.id?.type === "required" && <p>* Campo obligatorio</p>}
                 {errors.id?.type === "maxLength" && <p> Longitud máxima: 4 </p>}
+                {errors.id?.type === "pattern" && (
+                  <p> Debe comenzar con # seguido de 3 numeros</p>
+                )}
               </p>
               <p className="pAgregar">
                 <label for="nombre">
@@ -75,10 +78,18 @@ export default function Agregar() {
                   id="nombre"
                   {...register("nombre", {
                     required: true,
+                    maxLength: 20,
+                    pattern: /^[A-Za-z]+$/,
                   })}
                 />
                 {errors.nombre?.type === "required" && (
                   <p>* Campo obligatorio</p>
+                )}
+                {errors.nombre?.type === "maxLength" && (
+                  <p>El nombre no puede contener mas de 20 caracteres</p>
+                )}
+                {errors.nombre?.type === "pattern" && (
+                  <p>El nombre no puede contener números</p>
                 )}
               </p>
 
@@ -93,6 +104,7 @@ export default function Agregar() {
                   {...register("colorPrimario", {
                     required: true,
                     maxLength: 7,
+                    pattern: /#{1}[0-9a-zA-Z]{6}/,
                   })}
                 />
                 {errors.colorPrimario?.type === "required" && (
@@ -100,6 +112,9 @@ export default function Agregar() {
                 )}
                 {errors.colorPrimario?.type === "maxLength" && (
                   <p> Longitud máxima: 7 </p>
+                )}
+                {errors.colorPrimario?.type === "pattern" && (
+                  <p>Debe empezar con # seguido de 6 valores entre a-f 0-9</p>
                 )}
               </p>
 
@@ -110,10 +125,14 @@ export default function Agregar() {
                   id="colorSecundario"
                   {...register("colorSecundario", {
                     maxLength: 7,
+                    pattern: /#{1}[0-9a-zA-Z]{6}/,
                   })}
                 />
-                {errors.colorPrimario?.type === "maxLength" && (
+                {errors.colorSecundario?.type === "maxLength" && (
                   <p> Longitud máxima: 7 </p>
+                )}
+                {errors.colorSecundario?.type === "pattern" && (
+                  <p>Debe empezar con # seguido de 6 valores entre a-f 0-9</p>
                 )}
               </p>
               <p className="pAgregar">
@@ -126,9 +145,13 @@ export default function Agregar() {
                   id="peso"
                   {...register("peso", {
                     required: true,
+                    pattern: /^[0-9]+([.][0-9]+)?$/,
                   })}
                 />
                 {errors.peso?.type === "required" && <p>* Campo obligatorio</p>}
+                {errors.peso?.type === "pattern" && (
+                  <p>Debe empezar con un número, y ser solo números!</p>
+                )}
               </p>
 
               <p className="pAgregar">
@@ -141,10 +164,14 @@ export default function Agregar() {
                   id="altura"
                   {...register("altura", {
                     required: true,
+                    pattern: /^[0-9]+([.][0-9]+)?$/,
                   })}
                 />
                 {errors.altura?.type === "required" && (
                   <p>* Campo obligatorio</p>
+                )}
+                {errors.altura?.type === "pattern" && (
+                  <p>Debe empezar con un número, y ser solo números!</p>
                 )}
               </p>
 
@@ -158,11 +185,13 @@ export default function Agregar() {
                   id="tipo1"
                   {...register("tipo1", {
                     required: true,
+                    pattern: /^[A-Za-z]+$/,
                   })}
                 />
                 {errors.tipo1?.type === "required" && (
                   <p>* Campo obligatorio</p>
                 )}
+                {errors.tipo1?.type === "pattern" && <p>Solo letras! </p>}
               </p>
 
               <p className="pAgregar">
@@ -170,8 +199,11 @@ export default function Agregar() {
                 <input
                   className="texto_mensaje"
                   id="tipo2"
-                  {...register("tipo2")}
+                  {...register("tipo2", {
+                    pattern: /^[A-Za-z]+$/,
+                  })}
                 ></input>
+                {errors.tipo2?.type === "pattern" && <p>Solo letras! </p>}
               </p>
 
               <p className="pAgregar">
@@ -183,11 +215,13 @@ export default function Agregar() {
                   id="movimiento1"
                   {...register("movimiento1", {
                     required: true,
+                    pattern: /^[A-Za-z]+$/,
                   })}
                 />
                 {errors.movimiento1?.type === "required" && (
                   <p>* Campo obligatorio</p>
                 )}
+                {errors.movimiento1?.type === "pattern" && <p>Solo letras! </p>}
               </p>
 
               <p className="pAgregar">
@@ -195,8 +229,11 @@ export default function Agregar() {
                 <input
                   className="texto_mensaje"
                   id="movimiento2"
-                  {...register("movimiento2")}
+                  {...register("movimiento2", {
+                    pattern: /^[A-Za-z]+$/,
+                  })}
                 ></input>
+                {errors.movimiento2?.type === "pattern" && <p>Solo letras! </p>}
               </p>
 
               <p className="pAgregar">
@@ -220,60 +257,63 @@ export default function Agregar() {
                     <input
                       type="number"
                       min="0"
-                      max="100"
+                      max="999"
                       {...register("HP", {
                         required: true,
                         maxLength: 3,
                         validate: statsValidator,
+                        pattern: /^[0-9]+$/,
                       })}
                     />
                     {errors.HP?.type === "required" && (
                       <p>* Campo obligatorio</p>
                     )}
-                    {errors.colorPrimario?.type === "maxLength" && (
+                    {errors.HP?.type === "maxLength" && (
                       <p> Longitud máxima: 3 </p>
                     )}
-                    {errors.HP && <p>Numero entre 0 y 999</p>}
+                    {errors.HP?.type === "pattern" && <p>Solo numeros!</p>}
                   </div>
                   <div className="inputStats">
                     <label for="ATK">ATK</label>
                     <input
                       type="number"
                       min="0"
-                      max="100"
+                      max="999"
                       {...register("ATK", {
                         required: true,
                         maxLength: 3,
                         validate: statsValidator,
+                        pattern: /^[0-9]+$/,
                       })}
                     />
                     {errors.ATK?.type === "required" && (
                       <p>* Campo obligatorio</p>
                     )}
-                    {errors.colorPrimario?.type === "maxLength" && (
+                    {errors.ATK?.type === "maxLength" && (
                       <p> Longitud máxima: 3 </p>
                     )}
-                    {errors.ATK && <p>Numero entre 0 y 999</p>}
+                    {errors.ATK?.type === "pattern" && <p>Solo numeros!</p>}
                   </div>
                   <div className="inputStats">
                     <label for="DEF">DEF</label>
                     <input
                       type="number"
                       min="0"
-                      max="100"
+                      max="999"
                       {...register("DEF", {
                         required: true,
                         maxLength: 3,
                         validate: statsValidator,
+                        pattern: /^[0-9]+$/,
                       })}
                     />
                     {errors.DEF?.type === "required" && (
                       <p>* Campo obligatorio</p>
                     )}
-                    {errors.colorPrimario?.type === "maxLength" && (
+                    {errors.DEF?.type === "maxLength" && (
                       <p> Longitud máxima: 3 </p>
                     )}
-                    {errors.DEF && <p>Numero entre 0 y 999</p>}
+                    {errors.DEF?.type === "pattern" && <p>Solo numeros!</p>}
                   </div>
                 </div>
                 <div className="statsAgregarColumna2">
@@ -282,60 +322,63 @@ export default function Agregar() {
                     <input
                       type="number"
                       min="0"
-                      max="100"
+                      max="999"
                       {...register("SATK", {
                         required: true,
                         maxLength: 3,
                         validate: statsValidator,
+                        pattern: /^[0-9]+$/,
                       })}
                     />
                     {errors.SATK?.type === "required" && (
                       <p>* Campo obligatorio</p>
                     )}
-                    {errors.colorPrimario?.type === "maxLength" && (
+                    {errors.SATK?.type === "maxLength" && (
                       <p> Longitud máxima: 3 </p>
                     )}
-                    {errors.SATK && <p>Numero entre 0 y 999</p>}
+                    {errors.SATK?.type === "pattern" && <p>Solo numeros!</p>}
                   </div>
                   <div className="inputStats">
                     <label for="SDEF">SDEF</label>
                     <input
                       type="number"
                       min="0"
-                      max="100"
+                      max="999"
                       {...register("SDEF", {
                         required: true,
                         maxLength: 3,
                         validate: statsValidator,
+                        pattern: /^[0-9]+$/,
                       })}
                     />
                     {errors.SDEF?.type === "required" && (
                       <p>* Campo obligatorio</p>
                     )}
-                    {errors.colorPrimario?.type === "maxLength" && (
+                    {errors.SDEF?.type === "maxLength" && (
                       <p> Longitud máxima: 3 </p>
                     )}
-                    {errors.SDEF && <p>Numero entre 0 y 999</p>}
+                    {errors.SDEF?.type === "pattern" && <p>Solo numeros!</p>}
                   </div>
                   <div className="inputStats">
                     <label for="SPD">SPD</label>
                     <input
                       type="number"
                       min="0"
-                      max="100"
+                      max="999"
                       {...register("SPD", {
                         required: true,
                         maxLength: 3,
                         validate: statsValidator,
+                        pattern: /^[0-9]+$/,
                       })}
                     />
                     {errors.SPD?.type === "required" && (
                       <p>* Campo obligatorio</p>
                     )}
-                    {errors.colorPrimario?.type === "maxLength" && (
+                    {errors.SPD?.type === "maxLength" && (
                       <p> Longitud máxima: 3 </p>
                     )}
-                    {errors.SPD && <p>Numero entre 0 y 999</p>}
+                    {errors.SDEF?.type === "pattern" && <p>Solo numeros!</p>}
                   </div>
                 </div>
               </div>
