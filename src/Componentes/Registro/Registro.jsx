@@ -1,37 +1,25 @@
 import React from "react";
-import { useState } from "react";
 import "./Registro.css";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Registro() {
-  const [nombre, setNombre] = useState("");
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState("");
-
   let [loading, setLoading] = useState(false);
-
   let navigate = useNavigate();
 
-  const handleChangeNombre = (evento) => {
-    console.log(nombre);
-    setNombre(evento.target.value);
-  };
-  const handleChangeMail = (evento) => {
-    setMail(evento.target.value);
-  };
-  const handleChangePass = (evento) => {
-    setPassword(evento.target.value);
-  };
-  const handleChangeConfirmPass = (evento) => {
-    setPasswordConfirmation(evento.target.value);
-  };
-  const registerUsuario = async () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  const registerUsuario = async (data) => {
     try {
       const respuesta = await fetch("http://localhost:1235/register", {
         method: "POST",
-        body: JSON.stringify({ nombre, mail, password, passwordConfirmation }),
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
@@ -71,50 +59,59 @@ export default function Registro() {
             <h1 className="h1Registro">Registrarse</h1>
           </div>
 
-          <form>
+          <form onSubmit={handleSubmit(registerUsuario)}>
             <div className="nombre-correo-mensaje">
               <div className="nombre-correo">
-                <label for="name">Nombre</label>
+                <label for="name">Username</label>
                 <input
-                  onChange={handleChangeNombre}
                   className="input-largo"
                   type="name"
-                  placeholder="Ingresar nombre"
-                  required
+                  placeholder="username..."
+                  {...register("username", {
+                    required: true,
+                    maxLength: 20,
+                  })}
                 />
-
+                {errors.username?.type === "required" && (
+                  <p>* Campo obligatorio</p>
+                )}
+                {errors.username?.type === "maxLenght" && (
+                  <p>Tamaño máximo: 20 caracteres</p>
+                )}
                 <label for="email">Email</label>
                 <input
-                  onChange={handleChangeMail}
                   className="input-largo"
                   type="email"
                   placeholder="Ingresar mail"
-                  required
+                  {...register("mail", {
+                    required: true,
+                    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  })}
                 />
+                {errors.mail?.type === "required" && <p>* Campo obligatorio</p>}
+                {errors.mail?.type === "pattern" && (
+                  <p>Ingrese un email correcto</p>
+                )}
                 <label for="password">Contraseña</label>
                 <input
-                  onChange={handleChangePass}
                   className="input-largo"
                   type="password"
                   placeholder="Contraseña"
-                  required
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                  })}
                 />
-                <label for="passwordConfirmation">Confirmar contraseña</label>
-                <input
-                  onChange={handleChangeConfirmPass}
-                  className="input-largo"
-                  type="password"
-                  placeholder="Confirmar contraseña"
-                  required
-                />
+                {errors.password?.type === "required" && (
+                  <p>* Campo obligatorio</p>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <p>Debe contener 6 caracteres comom mínimo</p>
+                )}
               </div>
             </div>
             <div className="boton-centro">
-              <button
-                onClick={registerUsuario}
-                className="boton-form"
-                type="button"
-              >
+              <button className="boton-form" type="submit">
                 Unirse
               </button>
             </div>

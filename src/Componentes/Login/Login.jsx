@@ -1,25 +1,22 @@
 import React from "react";
 import "./Login.css";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 
 export default function Login() {
-  const [mail, setMail] = useState("");
-  const [password, setPassword] = useState("");
   let navigate = useNavigate();
 
-  const handleChangeMail = (evento) => {
-    setMail(evento.target.value);
-  };
-  const handleChangePass = (evento) => {
-    setPassword(evento.target.value);
-  };
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
 
-  const loginUsuario = async () => {
+  const loginUsuario = async (data) => {
     try {
       const respuesta = await fetch("http://localhost:1235/login", {
         method: "POST",
-        body: JSON.stringify({ mail, password }),
+        body: JSON.stringify(data),
         headers: {
           "Content-Type": "application/json",
         },
@@ -49,27 +46,43 @@ export default function Login() {
         />
         <h1>Ingresar</h1>
       </div>
-      <form action="/aca_se_envia_ladata.com">
+      <form onSubmit={handleSubmit(loginUsuario)}>
         <div className="nombre-correo-mensaje">
           <div className="nombre-correo">
-            <label for="email">Email</label>
+            <label for="email">Username</label>
             <input
-              onChange={handleChangeMail}
               className="input-largo"
-              type={"email"}
-              placeholder="Ingresar mail"
+              type="text"
+              placeholder="Ingrese un nombre de usuario"
+              {...register("username", {
+                required: true,
+                maxLength: 20,
+              })}
             />
+            {errors.username?.type === "required" && <p>* Campo obligatorio</p>}
+            {errors.username?.type === "maxLength" && (
+              <p>Debe contener un máximo de 20 caracteres</p>
+            )}
             <label for="password">Contraseña</label>
             <input
-              onChange={handleChangePass}
               className="input-largo"
               type="password"
-              placeholder="Ingresar contraseña"
+              placeholder="Ingrese una contraseña"
+              {...register("password", {
+                required: true,
+                minLength: 6,
+              })}
             />
+            {errors.password?.type === "required" && <p>* Campo obligatorio</p>}
+            {errors.password?.type === "minLength" && (
+              <p>
+                Recuerda que tu contraseña contiene un mínimo de 6 caracteres
+              </p>
+            )}
           </div>
         </div>
         <div className="boton-centro">
-          <button onClick={loginUsuario} className="boton-form" type="button">
+          <button type="submit" className="boton-form">
             Ingresar
           </button>
 
