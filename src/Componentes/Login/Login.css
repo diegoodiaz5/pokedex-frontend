@@ -5,7 +5,48 @@
   }
   
   .imgflecha {
+    position: relative;
+    right: 30px;
     width: 30px;
     height: 30px;
     transform: rotateY(180deg);
+  }
+  
+  .conteiner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;
+  }
+  
+  .subConteiner{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 20px 110px 20px;
+    border: 2px solid black
+  }
+
+  .ingresar{
+    margin: 0;
+    color: rgb(17, 165, 224);
+    text-shadow: 1px 1px black;
+  }
+
+  .tituloYFlecha{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .formIngresar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .inputLogin{
+    width: 90%;
   }

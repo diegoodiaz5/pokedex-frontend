@@ -36,66 +36,72 @@ export default function Login() {
   };
 
   return (
-    <div className="contacto-form">
-      <div className="img-titulo">
-        <img
-          onClick={() => navigate("../")}
-          className="imgflecha"
-          src={require("../Materiales/Flecha.png")}
-          alt=""
-        />
-        <h1>Ingresar</h1>
-      </div>
-      <form onSubmit={handleSubmit(loginUsuario)}>
-        <div className="nombre-correo-mensaje">
-          <div className="nombre-correo">
-            <label for="email">Username</label>
-            <input
-              className="input-largo"
-              type="text"
-              placeholder="Ingrese un nombre de usuario"
-              {...register("username", {
-                required: true,
-                maxLength: 20,
-              })}
-            />
-            {errors.username?.type === "required" && <p>* Campo obligatorio</p>}
-            {errors.username?.type === "maxLength" && (
-              <p>Debe contener un máximo de 20 caracteres</p>
-            )}
-            <label for="password">Contraseña</label>
-            <input
-              className="input-largo"
-              type="password"
-              placeholder="Ingrese una contraseña"
-              {...register("password", {
-                required: true,
-                minLength: 6,
-              })}
-            />
-            {errors.password?.type === "required" && <p>* Campo obligatorio</p>}
-            {errors.password?.type === "minLength" && (
-              <p>
-                Recuerda que tu contraseña contiene un mínimo de 6 caracteres
-              </p>
-            )}
+    <div className="conteiner">
+      <div className="subConteiner">
+        <div className="tituloYFlecha">
+          <img
+            onClick={() => navigate("../")}
+            className="imgflecha"
+            src={require("../Materiales/Flecha.png")}
+            alt=""
+          />
+          <h1 className="ingresar">Ingresar</h1>
+        </div>
+        <form className="formIngresar" onSubmit={handleSubmit(loginUsuario)}>
+          <div>
+            <div>
+              <label for="email">Username</label>
+              <input
+                className="inputLogin"
+                type="text"
+                placeholder="Ingrese un nombre de usuario"
+                {...register("username", {
+                  required: true,
+                  maxLength: 20,
+                })}
+              />
+              {errors.username?.type === "required" && (
+                <p>* Campo obligatorio</p>
+              )}
+              {errors.username?.type === "maxLength" && (
+                <p>Debe contener un máximo de 20 caracteres</p>
+              )}
+              <label for="password">Contraseña</label>
+              <input
+                className="inputLogin"
+                type="password"
+                placeholder="Ingrese una contraseña"
+                {...register("password", {
+                  required: true,
+                  minLength: 6,
+                })}
+              />
+              {errors.password?.type === "required" && (
+                <p>* Campo obligatorio</p>
+              )}
+              {errors.password?.type === "minLength" && (
+                <p>
+                  Recuerda que tu contraseña contiene un mínimo de 6 caracteres
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-        <div className="boton-centro">
-          <button type="submit" className="boton-form">
-            Ingresar
-          </button>
+          <div>
+            <button type="submit" className="boton-form">
+              Ingresar
+            </button>
 
-          <p>No tenés cuenta?</p>
+            <p>No tenés cuenta?</p>
 
-          <button
-            onClick={() => navigate("../register")}
-            className="boton-form"
-          >
-            Registrate!
-          </button>
-        </div>
-      </form>
+            <button
+              onClick={() => navigate("../register")}
+              className="boton-form"
+            >
+              Registrate!
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

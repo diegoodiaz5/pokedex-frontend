@@ -1,46 +1,99 @@
-.contact_form{  
-    width: 460px; 
+.contenedorAgregar{  
+  width: 500px;
     height: auto;
     margin: 5px auto;
     border-radius: 10px;   
-    background-color: #fbfbfb; 
+    background-color: #efeff3; 
     padding-left: 4px; 
   }
+
+  .formularioAgregar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    margin-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-shadow: .5px .5px 3px 1px rgb(125, 168, 23);
+    border-radius: 12px;
+  }
+
+  .formAgregar{
+    display: flex;
+    flex-direction: column;
+  }
+
+  .titleYFlechita{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+    left: -2px;
+  }
+
+  .imgFlechaAgregar {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    transform: rotateY(180deg);
+  }
+
+  .imgFlechaAgregar:hover{
+    opacity: 80%;
+  }
   
+  .h1Agregar{
+    font-size: 39px;  
+    text-align: center; 
+    color: #b2d827;
+    text-shadow: 1px 1px 1px black;
+    margin: 0;
+  }
+
+  .pError{
+    margin-top: 0px ;
+    margin-bottom: 5px;
+  }
   
-  input{
+  .inputAgregar{
     background-color: #fbfbfb; 
     width: 408px; 
     height: 40px; 
     border-radius: 5px;  
     border-style: solid; 
     border-width: 1px; 
-    border-color: #ef5350; 
     padding-left: 10px;
-    margin-bottom: 10px
+    padding-right: 10px;
+  }
+
+  .inputAgregar:focus{
+    outline:0;
+    border: 1px solid #97d848;
   }
   
   
-  textarea{
+  .textAreaAgregar{
     background-color: #fbfbfb; 
-    width: 405px; 
-    height: 150px; 
+    width: 408px; 
+    height: 150px;
     border-radius: 5px;  
     border-style: solid; 
     border-width: 1px; 
-    border-color: #ef5350; 
-    margin-top: 10px;  
     padding-left: 10px;
-    margin-bottom: 20px; 
-    padding-top: 15px; 
+    padding-top: 6px; 
   }
-  
+
+  .textAreaAgregar:focus{
+    outline:0;
+    border: 1px solid #97d848;
+  }
   
   label{
     display: block; 
     float: center;  
   }
-  
   
   .buttonEnviar{
     height: 45px; 
@@ -49,7 +102,7 @@
     margin-bottom: 20px; 
     margin-top: 10px;   
     text-transform: uppercase;
-    background-color: #ef5350; 
+    background-color: #ffff3f; 
     border-color: #000000a1; 
     border-style: solid; 
     border-radius: 10px;  
@@ -60,56 +113,19 @@
     opacity: 80%;
   }
   
-  
-  button p{
-color: #d3df35
-}
-  
-  
   span{
     color: #ff0000; 
   }
   
-  
   .aviso{
     font-size: 14px;  
     color: #0e0e0e;  
-  }
-  
-  
-  .h1Agregar{
-    font-size: 39px;  
-    text-align: center; 
-    color: #b2d827;
-    text-shadow: 1px 1px 1px black;
-  }
-  
+  } 
   
   .pAgregar{
-    font-size: 14px; 
+    font-size: 13px; 
     color: #0e0e0e; 
-  }
-  
-  
-  ::-webkit-input-placeholder {
-   color: #a8a8a8;
-  }
-  
-  
-  ::-webkit-textarea-placeholder {
-   color: #a8a8a8;
-  }
-  
-  
-  .formulario input:focus{
-    outline:0;
-    border: 1px solid #97d848;
-  }
-  
-  
-  .formulario textarea:focus{
-    outline:0;
-    border: 1px solid #97d848;
+    margin: 6px;
   }
 
 .statsAgregar{
@@ -122,6 +138,7 @@ color: #d3df35
     flex-direction: column;
     align-items: center;
     width: 20%;
+    font-size: 13px;
 }
 
 .inputStats > input {
