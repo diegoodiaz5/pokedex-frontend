@@ -1,52 +1,177 @@
-.img-titulo {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-  }
-  
-  .imgflecha {
-    position: relative;
-    right: 30px;
+.imgflecha{
+  position: relative;
+    right: 5px;
     width: 30px;
     height: 30px;
     transform: rotateY(180deg);
-  }
-  
-  .conteiner{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-top: 50px;
-  }
-  
-  .subConteiner{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 20px 110px 20px;
-    border: 2px solid black
-  }
+}
 
-  .ingresar{
-    margin: 0;
-    color: rgb(17, 165, 224);
-    text-shadow: 1px 1px black;
-  }
+.contenedorLogin{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background-color: #F7F7F7;
+  background-image: url('../Materiales/backgroundLogin.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
 
-  .tituloYFlecha{
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .formIngresar{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+.login{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 60%;
+  margin-top: 110px;
+  margin-bottom: 110px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.158);
+  box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.438);
+  background-color: white;
+}
 
-  .inputLogin{
-    width: 90%;
+.leftLogin{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-top: 11%;
+}
+
+.titleImage{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome{
+  text-align: center;
+  color: #ffcb05;
+  text-shadow: 2px 2px rgba(0, 0, 0, 0.589);
+  font-size: 38px;
+}
+
+.pikachuImage{
+  width: 50px;
+  height: fit-content;
+}
+
+.inputUsername, .inputPassword{
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid rgba(160, 160, 160, 0.849);
+  height: 25px;
+}
+
+.inputUsername:focus, .inputPassword:focus{
+  outline: none;
+  border: 1px solid #d4aa01;
+}
+
+.parrafosErrors{
+  font-size: 11px;
+  margin: 0;
+}
+
+.pLogin, .pLogin{
+  margin: 0;
+  font-size: 12px;
+  color: rgb(97, 95, 95);
+  text-shadow: 1px 1px rgb(214, 212, 212);
+}
+
+
+.conteinerDatos{
+  margin-top: 20px;
+  padding-left: 41px;
+  padding-right: 41px;
+}
+
+.conteinerButtonLogin{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-left: 41px;
+  padding-right: 41px;
+  margin-top: 30px;
+}
+
+.buttonLogin{
+  width: 100%;
+  height: auto;
+  background: #ffcb05;
+  color: black;
+  font-size: 16px;
+  border: 1px solid rgba(59, 59, 59, 0.562);
+  box-shadow: 1px 1px 2px 0px #3a3939;
+  border-radius: 5px;
+}
+
+.buttonLogin:hover{
+  background: #e9ba00bb;
+}
+
+
+.rightLogin{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.loginImg{
+  width: 220px;
+}
+
+.parrafoFinal{
+  font-size: 12px;
+}
+
+#loginFallido{
+  font-size: 15px;
+  visibility: hidden;
+  color: red;
+  margin: 0;
+}
+
+@media screen and (max-width: 1120px) {
+    .pikachuImage{
+      display: none;
+    }
+    .login{
+      margin-bottom: 200px
+    }
+}
+
+@media screen and (max-width: 950px) {
+  .welcome{
+    font-size: 28px;
+  }  
+  .login{
+    margin-bottom: 250px;
   }
+}
+
+@media screen and (max-width:760px){
+  .login{
+    grid-template-columns: 1fr;
+  }
+  .rightLogin{
+    display: none;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .welcome{
+    font-size: 22px;
+  }  
+  .titleImage{
+    gap: 0px;
+  }
+  .imgflecha{
+    right: 0;
+    width: 20px;
+    height: 20px;
+  }
+}

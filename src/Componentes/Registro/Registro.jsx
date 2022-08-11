@@ -59,7 +59,10 @@ export default function Registro() {
             <h1 className="h1Registro">Registrarse</h1>
           </div>
 
-          <form onSubmit={handleSubmit(registerUsuario)}>
+          <form
+            className="formRegister"
+            onSubmit={handleSubmit(registerUsuario)}
+          >
             <div className="nombre-correo-mensaje">
               <div className="nombre-correo">
                 <label for="name">Username</label>

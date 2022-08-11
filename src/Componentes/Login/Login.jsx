@@ -2,6 +2,8 @@ import React from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import PikachuTransparent from "../Materiales/pikachu-transparent.png";
+import LoginImg from "../Materiales/loginImg.png";
 
 export default function Login() {
   let navigate = useNavigate();
@@ -11,6 +13,8 @@ export default function Login() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
+  const loginFailed = document.getElementById("loginFallido");
 
   const loginUsuario = async (data) => {
     try {
@@ -31,76 +35,80 @@ export default function Login() {
       navigate("../", { replace: true });
     } catch (error) {
       console.log("No se pudo conectar con el backend");
-      alert("algo de los datos ingresados no es correcto");
+      loginFailed.style.visibility = "visible";
     }
   };
 
   return (
-    <div className="conteiner">
-      <div className="subConteiner">
-        <div className="tituloYFlecha">
-          <img
-            onClick={() => navigate("../")}
-            className="imgflecha"
-            src={require("../Materiales/Flecha.png")}
-            alt=""
-          />
-          <h1 className="ingresar">Ingresar</h1>
-        </div>
-        <form className="formIngresar" onSubmit={handleSubmit(loginUsuario)}>
-          <div>
-            <div>
-              <label for="email">Username</label>
+    <div className="contenedorLogin">
+      <div className="login">
+        <div className="leftLogin">
+          <div className="titleImage">
+            <img
+              onClick={() => navigate("../")}
+              className="imgflecha"
+              src={require("../Materiales/Flecha.png")}
+              alt="arrow"
+            />
+            <h1 className="welcome">Bienvenido!</h1>
+            <img
+              className="pikachuImage"
+              src={PikachuTransparent}
+              alt="pikachu"
+            />
+          </div>
+          <form className="formIngresar" onSubmit={handleSubmit(loginUsuario)}>
+            <div className="conteinerDatos">
+              <label className="pLogin">Username</label>
+              <div className="conteinerInput">
+                <input
+                  className="inputUsername"
+                  type="text"
+                  placeholder="Ingrese un nombre de usuario"
+                  {...register("username", {
+                    required: true,
+                    maxLength: 20,
+                  })}
+                />
+                {errors.username?.type === "required" && (
+                  <p className="parrafosErrors">* Campo obligatorio</p>
+                )}
+                {errors.username?.type === "maxLength" && (
+                  <p className="parrafosErrors">
+                    Debe contener un máximo de 20 caracteres
+                  </p>
+                )}
+              </div>
+              <label className="pLogin">Password</label>
               <input
-                className="inputLogin"
-                type="text"
-                placeholder="Ingrese un nombre de usuario"
-                {...register("username", {
-                  required: true,
-                  maxLength: 20,
-                })}
-              />
-              {errors.username?.type === "required" && (
-                <p>* Campo obligatorio</p>
-              )}
-              {errors.username?.type === "maxLength" && (
-                <p>Debe contener un máximo de 20 caracteres</p>
-              )}
-              <label for="password">Contraseña</label>
-              <input
-                className="inputLogin"
+                className="inputPassword"
                 type="password"
                 placeholder="Ingrese una contraseña"
                 {...register("password", {
                   required: true,
-                  minLength: 6,
                 })}
               />
               {errors.password?.type === "required" && (
-                <p>* Campo obligatorio</p>
-              )}
-              {errors.password?.type === "minLength" && (
-                <p>
-                  Recuerda que tu contraseña contiene un mínimo de 6 caracteres
-                </p>
+                <p className="parrafosErrors">* Campo obligatorio</p>
               )}
             </div>
-          </div>
-          <div>
-            <button type="submit" className="boton-form">
-              Ingresar
-            </button>
-
-            <p>No tenés cuenta?</p>
-
-            <button
-              onClick={() => navigate("../register")}
-              className="boton-form"
-            >
-              Registrate!
-            </button>
-          </div>
-        </form>
+            <div className="conteinerButtonLogin">
+              <button type="submit" className="buttonLogin">
+                LOGIN
+              </button>
+              <p className="parrafoFinal">
+                ¿Aún no estás registrado?{" "}
+                <a href="http://localhost:3000/register">Registrarme!</a>
+              </p>
+              <p id="loginFallido">
+                <b>Datos incorrectos!</b>
+              </p>
+            </div>
+          </form>
+        </div>
+        <div className="rightLogin">
+          <img className="loginImg" src={LoginImg} alt="login" />
+        </div>
       </div>
     </div>
   );
