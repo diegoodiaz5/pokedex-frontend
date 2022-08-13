@@ -22,7 +22,7 @@
   grid-template-columns: 1fr 1fr;
   width: 60%;
   margin-top: 110px;
-  margin-bottom: 110px;
+  height: fit-content;
   border-radius: 20px;
   border: 1px solid rgba(0, 0, 0, 0.158);
   box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.438);
@@ -111,7 +111,6 @@
   background: #e9ba00bb;
 }
 
-
 .rightLogin{
   display: flex;
   align-items: center;
@@ -170,7 +169,7 @@
     gap: 0px;
   }
   .imgflecha{
-    right: 0;
+    right: 10;
     width: 20px;
     height: 20px;
   }
